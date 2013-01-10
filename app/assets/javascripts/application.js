@@ -16,5 +16,6 @@
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
+//= require backbone-firebase
 //= require backbone/estimateit
 //= require_tree .

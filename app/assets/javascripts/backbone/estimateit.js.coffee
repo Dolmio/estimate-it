@@ -4,8 +4,14 @@
 #= require_tree ./views
 #= require_tree ./routers
 
+$ = jQuery
 window.Estimateit =
   Models: {}
   Collections: {}
   Routers: {}
   Views: {}
+  init: ->
+    new Estimateit.Routers.UsersRouter
+$(document).ready ->
+  Estimateit.init()
+  
