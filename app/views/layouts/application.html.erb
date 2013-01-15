@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
   <title>Estimateit</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "https://cdn.firebase.com/v0/firebase.js" %>
+  <%= javascript_include_tag 'https://cdn.firebase.com/v0/firebase.js' %>
+  
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+<!--<div ng-include src="'users.html'"></div>-->
+<div ng-controller="UsersController">  
+  <ul>
+    <li ng-repeat="user in users">
+      <input type="textfield" ng-model="user.estimation" ng-change="change(user)">
+    </li>
+  </ul>
+</div>
 
 </body>
 </html>
