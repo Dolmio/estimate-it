@@ -11,6 +11,9 @@
 <body>
 <!--<div ng-include src="'users.html'"></div>-->
 <div ng-controller="UsersController">  
+  <h1>Me</h1>
+   <input type="textfield" ng-model="me.estimation" ng-change="change(me)">
+  <h1>Other users</h1>
   <ul>
     <li ng-repeat="user in users">
       <input type="textfield" ng-model="user.estimation" ng-change="change(user)">

@@ -11,3 +11,10 @@
  *= require_self
  *= require_tree .
  */
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+$green: rgb(34,137,96);
+body{
+  background-color:$green
+}
