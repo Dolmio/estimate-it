@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require underscore
+//= require q
 //= require angular.min
 //= require_tree .
 
