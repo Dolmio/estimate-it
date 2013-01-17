@@ -19,7 +19,7 @@ class UsersController
         $scope.me = new_user
       else
         $scope.users.push new_user
-      $scope.$apply()
+      $scope.safeApply()
     
     
     @firebase.on "child_changed", (snapshot) =>
@@ -27,26 +27,37 @@ class UsersController
       console.log snapshot.name()
       dirty_user = _.find($scope.users, (user) -> user.id is snapshot.name())
       $scope.users[_.indexOf($scope.users, dirty_user)] = angular.fromJson(snapshot.val())
-      $scope.$apply()
+      $scope.safeApply()
     
     @firebase.on "child_removed", (snapshot) =>
       console.log "child removed"
       console.log $scope.users
       console.log snapshot.name()
       user_to_delete = _.find($scope.users, (user) -> user.id is snapshot.name())
-      index_to_remove = _.indexOf($scope.users, user_to_delete)
-      console.log index_to_remove
-      $scope.users.splice(index_to_remove, 1)
-      console.log $scope
-      $scope.$apply()
+      index_to_remove = _.indexOf $scope.users, user_to_delete
+      $scope.users.splice index_to_remove, 1
+      $scope.safeApply()
     
     
     $scope.change = (user)=>
       console.log "changed in browser"
       #filter angular specific trash from object
       user = angular.fromJson(angular.toJson(user))
-      @firebase.child(user.id).set(user)
+      @firebase.child(user.id).set user
     
+    $scope.change_estimation=(estimate)=>
+      me_c = angular.copy $scope.me
+      console.log "estimate: #{estimate}"
+      me_c.estimation = estimate
+      $scope.change me_c
+      
+    $scope.safeApply = (fn) ->
+      phase = @$root.$$phase
+      if phase is "$apply" or phase is "$digest"
+        fn()  if fn and (typeof (fn) is "function")
+      else
+        @$apply fn
+      
   new_user_promise:($scope) ->
     deferred = Q.defer()
     location = @firebase.push $scope.me, (success)->

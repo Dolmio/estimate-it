@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html ng-app="myApp">
-<head>
-  <title>Estimateit</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag 'https://cdn.firebase.com/v0/firebase.js' %>
-  
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<!--<div ng-include src="'users.html'"></div>-->
-<div ng-controller="UsersController">  
-  <h1>Me</h1>
-   <input type="textfield" ng-model="me.estimation" ng-change="change(me)">
-  <h1>Other users</h1>
-  <ul>
-    <li ng-repeat="user in users">
-      <input type="textfield" ng-model="user.estimation" ng-change="change(user)">
-    </li>
-  </ul>
-</div>
-
-</body>
-</html>
+!!!
+%html{"ng-app" => "myApp"}
+  %head
+    %title Estimateit
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = javascript_include_tag 'https://cdn.firebase.com/v0/firebase.js'
+    = csrf_meta_tags
+  %body
+    
+    %div{"ng-controller" => "UsersController"}
+      - @items = [0,1,2,3,5,8,12,100,50]
+      
+      - for i in 0..2
+        - @multiplier = i * 3
+        .row
+          .span4.offset1{"ng-click"=>"change_estimation(#{@items[@multiplier]})"} #{@items[@multiplier]}
+          .span4.offset1{"ng-click"=>"change_estimation(#{@items[@multiplier + 1 ]})"} #{@items[@multiplier + 1]}
+          .span4.offset1{"ng-click"=>"change_estimation(#{@items[@multiplier + 2 ]})"} #{@items[@multiplier + 2]}
+              
+      %ul.user_list
+        %li.span2.user_element{"ng-repeat" => "user in users"} 
+          {{user.estimation}}
+            
+          
+      
+        

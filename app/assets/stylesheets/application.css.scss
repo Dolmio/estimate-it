@@ -11,10 +11,42 @@
  *= require_self
  *= require_tree .
  */
-@import "bootstrap";
-@import "bootstrap-responsive";
+ @import "bootstrap";
+ body { padding-top: 60px; }
+ @import "bootstrap-responsive";
 
 $green: rgb(34,137,96);
 body{
-  background-color:$green
+  background-color:$green;
+  color: white;
+}
+.row{
+  
+  text-align:center;
+  font-size: 6em;
+  font-weight: bold;
+  
+}
+.span4{
+  float:left;
+  border-style:solid;
+  border-width:1px;
+  line-height: 80px;
+  
+ 
+}
+.user_list{
+  margin-top: 40px;
+  
+}
+.user_element{
+  
+  list-style-type: none;
+  font-size: 6em;
+  font-weight: bold;
+  line-height: 80px;
+  text-align:center;
+  border-style:solid;
+  border-width:1px;
+  
 }
