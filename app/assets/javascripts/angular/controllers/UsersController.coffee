@@ -46,10 +46,9 @@ class UsersController
       @firebase.child(user.id).set user
     
     $scope.change_estimation=(estimate)=>
-      me_c = angular.copy $scope.me
-      console.log "estimate: #{estimate}"
-      me_c.estimation = estimate
-      $scope.change me_c
+      $scope.me.estimation = estimate
+      $scope.me.selected = true
+      $scope.change $scope.me
       
     $scope.safeApply = (fn) ->
       phase = @$root.$$phase
@@ -72,7 +71,7 @@ UsersController.$inject = ["$scope"]
 module.controller "UsersController", UsersController
 
 class User
-  constructor: (@id = @generateUUID(), @estimation = 0)->
+  constructor: (@id = @generateUUID(), @estimation = -1, @selected = false, @open = false)->
   #from stackoverflow...
   #So we can recognize ourselves  
   generateUUID: ->

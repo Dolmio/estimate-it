@@ -14,9 +14,9 @@
       - for i in 0..2
         - @multiplier = i * 3
         .row
-          .span4.offset1{"ng-click"=>"change_estimation(#{@items[@multiplier]})"} #{@items[@multiplier]}
-          .span4.offset1{"ng-click"=>"change_estimation(#{@items[@multiplier + 1 ]})"} #{@items[@multiplier + 1]}
-          .span4.offset1{"ng-click"=>"change_estimation(#{@items[@multiplier + 2 ]})"} #{@items[@multiplier + 2]}
+          .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@items[@multiplier]}}", "ng-click"=>"change_estimation(#{@items[@multiplier]})"} #{@items[@multiplier]}
+          .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@items[@multiplier + 1 ]}}", "ng-click"=>"change_estimation(#{@items[@multiplier + 1 ]})"} #{@items[@multiplier + 1]}
+          .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@items[@multiplier + 2 ]}}", "ng-click"=>"change_estimation(#{@items[@multiplier + 2 ]})"} #{@items[@multiplier + 2]}
               
       %ul.user_list
         %li.span2.user_element{"ng-repeat" => "user in users"} 
