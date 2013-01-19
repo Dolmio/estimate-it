@@ -14,13 +14,14 @@
       - for i in 0..2
         - @multiplier = i * 3
         .row
-          .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@items[@multiplier]}}", "ng-click"=>"change_estimation(#{@items[@multiplier]})"} #{@items[@multiplier]}
-          .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@items[@multiplier + 1 ]}}", "ng-click"=>"change_estimation(#{@items[@multiplier + 1 ]})"} #{@items[@multiplier + 1]}
-          .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@items[@multiplier + 2 ]}}", "ng-click"=>"change_estimation(#{@items[@multiplier + 2 ]})"} #{@items[@multiplier + 2]}
+          - for j in 0..2
+            - @value = @items[@multiplier + j]
+            .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@value}}", "ng-click"=>"change_estimation(#{@value})"} #{@value}
+          
               
       %ul.user_list
-        %li.span2.user_element{"ng-repeat" => "user in users"} 
-          {{user.estimation}}
+        %li.span2.user_element{"ng-repeat" => "user in users", "ng-class" => "{selected: user.selected}"} 
+          %p{"ng-class" => "{open: everyone_ready()}"} {{user.estimation}}
             
           
       

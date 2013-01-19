@@ -52,5 +52,11 @@ body{
 }
 
 .selected{
-  background-color: gray;
+  border-width:5px;
+}
+li p{
+  visibility:hidden;
+}
+.open{
+  visibility:visible;
 }

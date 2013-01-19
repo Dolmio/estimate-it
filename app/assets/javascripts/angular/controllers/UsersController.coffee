@@ -1,14 +1,14 @@
 module = angular.module("myApp",[])
-firebase_url = "http://estimateit.firebaseio.com/users/"
+
 
 class UsersController
   constructor: ($scope)->
+    firebase_url = "http://estimateit.firebaseio.com/#{window.location.pathname}/users/}"
     @firebase = new Firebase firebase_url
     $scope.users = []
     $scope.me = new User
-    @new_user_promise($scope).then((location)=>
-      @firebase.child(location).removeOnDisconnect()
-    )
+    @new_user_promise($scope).then((location) -> location.removeOnDisconnect())
+    
     
     @firebase.on "child_added", (snapshot) =>
       user = snapshot.val()
@@ -50,6 +50,9 @@ class UsersController
       $scope.me.selected = true
       $scope.change $scope.me
       
+    $scope.everyone_ready = ->
+      $scope.me.selected and _.every($scope.users, (user) -> user.selected)
+      
     $scope.safeApply = (fn) ->
       phase = @$root.$$phase
       if phase is "$apply" or phase is "$digest"
@@ -61,8 +64,7 @@ class UsersController
     deferred = Q.defer()
     location = @firebase.push $scope.me, (success)->
       if success
-        #this might change depending on firebase path
-        deferred.resolve location.path.j[1]
+        deferred.resolve location
       else
         deferred.reject "creating new user failed"
     deferred.promise
