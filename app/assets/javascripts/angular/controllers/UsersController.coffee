@@ -7,18 +7,16 @@ class UsersController
     @firebase = new Firebase firebase_url
     $scope.users = []
     $scope.me = new User
-    @new_user_promise($scope).then((location) -> location.removeOnDisconnect())
+    @firebase.child($scope.me.id).set $scope.me
+    @firebase.child($scope.me.id).removeOnDisconnect()
+    
     
     
     @firebase.on "child_added", (snapshot) =>
-      user = snapshot.val()
       console.log "added child"
-      new_user = new User(snapshot.name(), user.estimation)
-      #regognize ourselves based on id
-      if user.id is $scope.me.id
-        $scope.me = new_user
-      else
-        $scope.users.push new_user
+      #dont push ourselves to users
+     if snapshot.val().id isnt $scope.me.id
+        $scope.users.push(new User(snapshot.name(), snapshot.val().estimation))
       $scope.safeApply()
     
     
@@ -63,16 +61,7 @@ class UsersController
         fn()  if fn and (typeof (fn) is "function")
       else
         @$apply fn
-      
-  new_user_promise:($scope) ->
-    deferred = Q.defer()
-    location = @firebase.push $scope.me, (success)->
-      if success
-        deferred.resolve location
-      else
-        deferred.reject "creating new user failed"
-    deferred.promise
-    
+
 UsersController.$inject = ["$scope"]
 module.controller "UsersController", UsersController
 
