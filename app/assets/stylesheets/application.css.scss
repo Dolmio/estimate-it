@@ -47,7 +47,6 @@ h1{
 .row{
   
   text-align:center;
-  font-size: 6em;
   font-weight: bold;
   
 }
@@ -55,6 +54,7 @@ h1{
   line-height: 80px;
   background-color:$blue;
   margin: 10px;
+  font-size: 6em;
   @include borders;
   @include shadow;
 }
@@ -79,12 +79,25 @@ h1{
   
 }
 
-.selected{
-  background-color: $blue-light;
-}
+
 .icon-ok{
   @extend .icon-ok-sign;
   line-height: 60px;
-  
 }
 
+.btn-custom {
+  background-color: hsl(196, 78%, 65%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#9fdcf3", endColorstr="#60c6eb");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#9fdcf3), to(#60c6eb));
+  background-image: -moz-linear-gradient(top, #9fdcf3, #60c6eb);
+  background-image: -ms-linear-gradient(top, #9fdcf3, #60c6eb);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9fdcf3), color-stop(100%, #60c6eb));
+  background-image: -webkit-linear-gradient(top, #9fdcf3, #60c6eb);
+  background-image: -o-linear-gradient(top, #9fdcf3, #60c6eb);
+  background-image: linear-gradient(#9fdcf3, #60c6eb);
+  border-color: #60c6eb #60c6eb hsl(196, 78%, 61.5%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.23);
+  -webkit-font-smoothing: antialiased;
+}

@@ -11,22 +11,26 @@
     = csrf_meta_tags
   %body
     
-    .container{"ng-controller" => "UsersController"}
+    .container{"ng-controller" => "UsersController", "data-toggle"=>"buttons-radio"}
       %h1 Planning Poker
-      - @items = [0,1,2,3,5,8,12,100,50]
+      - @items = ["0","1","2","3","5","8","12","50","?"]
       
       - for i in 0..2
         - @multiplier = i * 3
         .row
           - for j in 0..2
             - @value = @items[@multiplier + j]
-            .span3.offset3{"ng-class"=>"{selected: me.estimation == #{@value}}", "ng-click"=>"change_estimation(#{@value})"} #{@value}
-          
-              
+            .btn.btn-custom.span3.offset3{ "ng-class"=>"{selected: me.estimation == '#{@value}'}", "ng-click"=>"change_estimation('#{@value}')"} #{@value}
+      .btn-toolbar
+        .btn-group
+          .btn.btn-custom.btn-large Copy url
+        .btn-group
+          .btn.btn-custom.btn-large Clear everybody
+      %h2 Other users:        
       %ul.user_list
-        %li.span2.user_element{"ng-repeat" => "user in users", "ng-class" => "{user_ready: user.selected}"} 
+        %li.span2.user_element{"ng-repeat" => "user in users"} 
           %i.icon-ok{"ng-show" => "selected_user_and_waiting_for_others(user)"}
-          %p{"ng-show" => "!user.selected"} ?
+          %i.icon-question-sign{"ng-show" => "user.estimation == undefined"}
           %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
             
           

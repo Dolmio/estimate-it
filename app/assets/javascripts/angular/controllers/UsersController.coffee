@@ -10,19 +10,15 @@ class UsersController
     @firebase.child($scope.me.id).set $scope.me
     @firebase.child($scope.me.id).removeOnDisconnect()
     
-    
-    
     @firebase.on "child_added", (snapshot) =>
       console.log "added child"
       #dont push ourselves to users
-     if snapshot.val().id isnt $scope.me.id
-        $scope.users.push(new User(snapshot.name(), snapshot.val().estimation))
+      if snapshot.val().id isnt $scope.me.id
+         $scope.users.push snapshot.val()
       $scope.safeApply()
-    
     
     @firebase.on "child_changed", (snapshot) =>
       console.log "change"
-      console.log snapshot.name()
       dirty_user = _.find($scope.users, (user) -> user.id is snapshot.name())
       $scope.users[_.indexOf($scope.users, dirty_user)] = angular.fromJson(snapshot.val())
       $scope.safeApply()
@@ -45,16 +41,15 @@ class UsersController
     
     $scope.change_estimation=(estimate)=>
       $scope.me.estimation = estimate
-      $scope.me.selected = true
+      $scope.safeApply()
       $scope.change $scope.me
       
     $scope.everyone_ready = ->
-      $scope.me.selected and _.every($scope.users, (user) -> user.selected)
+      $scope.me.estimation? and _.every($scope.users, (user) -> user.estimation?)
     
     $scope.selected_user_and_waiting_for_others = (user)->
-      console.log "USER SELECTED: #{user.selected}"
-      console.log "EVERYONE READY: #{$scope.everyone_ready()}"
-      user.selected and not $scope.everyone_ready()
+      user.estimation? and not $scope.everyone_ready()
+    
     $scope.safeApply = (fn) ->
       phase = @$root.$$phase
       if phase is "$apply" or phase is "$digest"
@@ -66,7 +61,7 @@ UsersController.$inject = ["$scope"]
 module.controller "UsersController", UsersController
 
 class User
-  constructor: (@id = @generateUUID(), @estimation = -1, @selected = false, @open = false)->
+  constructor: (@id = @generateUUID())->
   #from stackoverflow...
   #So we can recognize ourselves  
   generateUUID: ->
