@@ -11,7 +11,7 @@
     = csrf_meta_tags
   %body
     
-    .container{"ng-controller" => "UsersController", "data-toggle"=>"buttons-radio"}
+    .container{"ng-controller" => "UsersController"}
       %h1 Planning Poker
       - @items = ["0","1","2","3","5","8","12","50","?"]
       
@@ -20,17 +20,15 @@
         .row
           - for j in 0..2
             - @value = @items[@multiplier + j]
-            .btn.btn-custom.span3.offset3{ "ng-class"=>"{selected: me.estimation == '#{@value}'}", "ng-click"=>"change_estimation('#{@value}')"} #{@value}
-      .btn-toolbar
-        .btn-group
-          .btn.btn-custom.btn-large Copy url
-        .btn-group
-          .btn.btn-custom.btn-large Clear everybody
+            .btn.btn-custom.span3.offset3{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_estimation('#{@value}')"} #{@value}
+      
+      .btn-group
+        .btn.btn-custom.btn-large{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_ready()"} Clear estimations
       %h2 Other users:        
       %ul.user_list
-        %li.span2.user_element{"ng-repeat" => "user in users"} 
-          %i.icon-ok{"ng-show" => "selected_user_and_waiting_for_others(user)"}
-          %i.icon-question-sign{"ng-show" => "user.estimation == undefined"}
+        .user_element.btn-custom.disabled{"ng-repeat" => "user in users"} 
+          %i.icon-ok-sign.user-icon{"ng-show" => "selected_user_and_waiting_for_others(user)"}
+          %i.icon-question-sign.user-icon{"ng-show" => "user.estimation == undefined"}
           %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
             
           

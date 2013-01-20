@@ -66,25 +66,25 @@ h1{
   
 }
 .user_element{
-  
-  list-style-type: none;
-  font-size: 7em;
-  font-weight: bold;
-  line-height: 80px;
-  text-align:center;
-  background-color:$blue;
-  height: 90px;
+  @extend .btn;
+  @extend .btn-large;
   @include borders;
   @include shadow;
+  line-height: 40px;
+  width: 120px;
+  height: 90px;
+  margin: 10px;
   
 }
 
-
-.icon-ok{
-  @extend .icon-ok-sign;
-  line-height: 60px;
+.user-icon{
+ font-size: 5em;
 }
-
+ul p{
+  font-size: 5em;
+  font-weight: bold;
+  margin-top: 20px;
+}
 .btn-custom {
   background-color: hsl(196, 78%, 65%) !important;
   background-repeat: repeat-x;
