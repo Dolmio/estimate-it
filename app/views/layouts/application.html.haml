@@ -2,13 +2,17 @@
 %html{"ng-app" => "myApp"}
   %head
     %title Estimateit
+    
     = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Abril+Fatface"
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:400,800,700'
     = javascript_include_tag "application"
     = javascript_include_tag 'https://cdn.firebase.com/v0/firebase.js'
     = csrf_meta_tags
   %body
     
-    %div{"ng-controller" => "UsersController"}
+    .container{"ng-controller" => "UsersController"}
+      %h1 Planning Poker
       - @items = [0,1,2,3,5,8,12,100,50]
       
       - for i in 0..2
@@ -16,12 +20,14 @@
         .row
           - for j in 0..2
             - @value = @items[@multiplier + j]
-            .span4.offset1{"ng-class"=>"{selected: me.estimation == #{@value}}", "ng-click"=>"change_estimation(#{@value})"} #{@value}
+            .span3.offset3{"ng-class"=>"{selected: me.estimation == #{@value}}", "ng-click"=>"change_estimation(#{@value})"} #{@value}
           
               
       %ul.user_list
-        %li.span2.user_element{"ng-repeat" => "user in users", "ng-class" => "{selected: user.selected}"} 
-          %p{"ng-class" => "{open: everyone_ready()}"} {{user.estimation}}
+        %li.span2.user_element{"ng-repeat" => "user in users", "ng-class" => "{user_ready: user.selected}"} 
+          %i.icon-ok{"ng-show" => "selected_user_and_waiting_for_others(user)"}
+          %p{"ng-show" => "!user.selected"} ?
+          %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
             
           
       

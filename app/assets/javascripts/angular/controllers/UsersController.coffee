@@ -3,7 +3,7 @@ module = angular.module("myApp",[])
 
 class UsersController
   constructor: ($scope)->
-    firebase_url = "http://estimateit.firebaseio.com/#{window.location.pathname}/users/}"
+    firebase_url = "http://estimateit.firebaseio.com/#{window.location.pathname}/users/"
     @firebase = new Firebase firebase_url
     $scope.users = []
     $scope.me = new User
@@ -52,7 +52,11 @@ class UsersController
       
     $scope.everyone_ready = ->
       $scope.me.selected and _.every($scope.users, (user) -> user.selected)
-      
+    
+    $scope.selected_user_and_waiting_for_others = (user)->
+      console.log "USER SELECTED: #{user.selected}"
+      console.log "EVERYONE READY: #{$scope.everyone_ready()}"
+      user.selected and not $scope.everyone_ready()
     $scope.safeApply = (fn) ->
       phase = @$root.$$phase
       if phase is "$apply" or phase is "$digest"

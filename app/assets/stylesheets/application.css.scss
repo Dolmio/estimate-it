@@ -12,14 +12,38 @@
  *= require_tree .
  */
  @import "bootstrap";
- body { padding-top: 60px; }
  @import "bootstrap-responsive";
+ @import "font-awesome";
 
-$green: rgb(34,137,96);
+
+$green: #90CA77;
+$blue: #81C6DD;
+$blue-light: #39AECF;
 body{
-  background-color:$green;
-  color: white;
+  background: $green url("45degreee_fabric.png") repeat 0 0;
+  color: #4E4E52;
+  font-family: 'Abril Fatface', cursive;
 }
+
+h1{
+  font-size: 6em;
+  font-weight: bold;
+  margin-top: 65px;
+  margin-bottom: 30px;
+}
+@mixin borders{
+  $radius:  10px;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+  border:2px solid white;
+}
+@mixin shadow{
+  -webkit-box-shadow: 3px 3px 5px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    3px 3px 5px rgba(50, 50, 50, 0.75);
+  box-shadow:         3px 3px 5px rgba(50, 50, 50, 0.75);
+}
+
 .row{
   
   text-align:center;
@@ -27,13 +51,15 @@ body{
   font-weight: bold;
   
 }
-.span4{
-  float:left;
-  border-style:solid;
-  border-width:1px;
+.span3{
   line-height: 80px;
-  
- 
+  background-color:$blue;
+  margin: 10px;
+  @include borders;
+  @include shadow;
+}
+.span4:hover{
+  background-color: #6dbdd8;
 }
 .user_list{
   margin-top: 40px;
@@ -42,21 +68,23 @@ body{
 .user_element{
   
   list-style-type: none;
-  font-size: 6em;
+  font-size: 7em;
   font-weight: bold;
   line-height: 80px;
   text-align:center;
-  border-style:solid;
-  border-width:1px;
+  background-color:$blue;
+  height: 90px;
+  @include borders;
+  @include shadow;
   
 }
 
 .selected{
-  border-width:5px;
+  background-color: $blue-light;
 }
-li p{
-  visibility:hidden;
+.icon-ok{
+  @extend .icon-ok-sign;
+  line-height: 60px;
+  
 }
-.open{
-  visibility:visible;
-}
+
