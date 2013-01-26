@@ -6,6 +6,7 @@
     = stylesheet_link_tag    "application", :media => "all"
     = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Abril+Fatface"
     = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Open+Sans:400,800,700'
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Lato:900'
     = javascript_include_tag "application"
     = javascript_include_tag 'https://cdn.firebase.com/v0/firebase.js'
     = csrf_meta_tags
@@ -24,7 +25,7 @@
       
       .btn-group
         .btn.btn-custom.btn-large{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_ready()"} Clear estimations
-      %h2 Other users:        
+      %h2 Other users at the same url:        
       %ul.user_list
         .user_element.btn-custom.disabled{"ng-repeat" => "user in users"} 
           %i.icon-ok-sign.user-icon{"ng-show" => "selected_user_and_waiting_for_others(user)"}
