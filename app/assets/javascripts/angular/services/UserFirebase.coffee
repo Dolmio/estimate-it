@@ -2,10 +2,12 @@ module = angular.module "service.userFirebase", []
 module.factory 'userFirebase', ->
   new UserFirebaseService
   
-class UserFirebaseService
+class @UserFirebaseService
   constructor:  ->
-    url = "http://estimateit.firebaseio.com/#{window.location.pathname}/users/"
-    @fb = new Firebase(url)
+    @url = "http://estimateit.firebaseio.com/#{window.location.pathname}/users/"
+  
+  connect: =>
+    @fb = new Firebase(@url)
     
   initialize_local_user: (user) =>
     @fb.child(user.id).set user
@@ -14,7 +16,7 @@ class UserFirebaseService
   on:(event_name, callback) =>
     @fb.on event_name, callback
   
-  update: (user) ->
+  update: (user) =>
     user = angular.fromJson(angular.toJson(user))
     @fb.child(user.id).set user
      

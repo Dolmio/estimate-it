@@ -21,7 +21,7 @@
         .row
           - for j in 0..2
             - @value = @items[@multiplier + j]
-            .btn.btn-custom.span3.offset3{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_estimation('#{@value}')"} #{@value}
+            .btn.btn-custom.span3.offset3{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
       
       .btn-group
         .btn.btn-custom.btn-large{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_ready()"} Clear estimations

@@ -1,21 +1,23 @@
-module = angular.module("myApp",['service.userFirebase'])
 
+module = angular.module("controllers",['service.userFirebase'])
+app = angular.module 'myApp', ['controllers']
 
-class UsersController
-  constructor: ($scope, userFirebase)->
-    
+class @UsersController
+  constructor: ($scope, @userFirebase)->
+   
     $scope.users = []
     $scope.me = new User
-    userFirebase.initialize_local_user($scope.me)
-    
-    userFirebase.on "child_added", (snapshot) =>
+    @userFirebase.connect()
+    @userFirebase.initialize_local_user($scope.me)
+  
+    @userFirebase.on "child_added", (snapshot) =>
       console.log "added child"
       #dont push ourselves to users
       if snapshot.val().id isnt $scope.me.id
          $scope.users.push snapshot.val()
       $scope.safeApply()
     
-    userFirebase.on "child_changed", (snapshot) =>
+    @userFirebase.on "child_changed", (snapshot) =>
       console.log "change"
       dirty_other_user = _.find($scope.users, (user) -> user.id is snapshot.name())
       if not dirty_other_user? and $scope.me.id is snapshot.name()
@@ -24,21 +26,21 @@ class UsersController
         $scope.users[_.indexOf($scope.users, dirty_other_user)] = angular.fromJson(snapshot.val())
       $scope.safeApply()
     
-    userFirebase.on "child_removed", (snapshot) =>
+    @userFirebase.on "child_removed", (snapshot) =>
       console.log "child removed"
       user_to_delete = _.find($scope.users, (user) -> user.id is snapshot.name())
       index_to_remove = _.indexOf $scope.users, user_to_delete
       $scope.users.splice index_to_remove, 1
       $scope.safeApply()
     
-    
+ 
     $scope.change = (user)=>
       console.log "changed in browser"
-      userFirebase.update(user)
-    
-    $scope.change_estimation=(estimate)=>
-      $scope.me.estimation = estimate
+      @userFirebase.update(user)
       $scope.safeApply()
+    
+    $scope.change_my_estimation=(estimate)=>
+      $scope.me.estimation = estimate
       $scope.change $scope.me
     
     $scope.clear_everybody_if_ready = ->
