@@ -1,23 +1,21 @@
-module = angular.module("myApp",[])
+module = angular.module("myApp",['service.userFirebase'])
 
 
 class UsersController
-  constructor: ($scope)->
-    firebase_url = "http://estimateit.firebaseio.com/#{window.location.pathname}/users/"
-    @firebase = new Firebase firebase_url
+  constructor: ($scope, userFirebase)->
+    
     $scope.users = []
     $scope.me = new User
-    @firebase.child($scope.me.id).set $scope.me
-    @firebase.child($scope.me.id).removeOnDisconnect()
+    userFirebase.initialize_local_user($scope.me)
     
-    @firebase.on "child_added", (snapshot) =>
+    userFirebase.on "child_added", (snapshot) =>
       console.log "added child"
       #dont push ourselves to users
       if snapshot.val().id isnt $scope.me.id
          $scope.users.push snapshot.val()
       $scope.safeApply()
     
-    @firebase.on "child_changed", (snapshot) =>
+    userFirebase.on "child_changed", (snapshot) =>
       console.log "change"
       dirty_other_user = _.find($scope.users, (user) -> user.id is snapshot.name())
       if not dirty_other_user? and $scope.me.id is snapshot.name()
@@ -26,7 +24,7 @@ class UsersController
         $scope.users[_.indexOf($scope.users, dirty_other_user)] = angular.fromJson(snapshot.val())
       $scope.safeApply()
     
-    @firebase.on "child_removed", (snapshot) =>
+    userFirebase.on "child_removed", (snapshot) =>
       console.log "child removed"
       user_to_delete = _.find($scope.users, (user) -> user.id is snapshot.name())
       index_to_remove = _.indexOf $scope.users, user_to_delete
@@ -36,9 +34,7 @@ class UsersController
     
     $scope.change = (user)=>
       console.log "changed in browser"
-      #filter angular specific trash from object
-      user = angular.fromJson(angular.toJson(user))
-      @firebase.child(user.id).set user
+      userFirebase.update(user)
     
     $scope.change_estimation=(estimate)=>
       $scope.me.estimation = estimate
@@ -68,7 +64,7 @@ class UsersController
       else
         @$apply fn
 
-UsersController.$inject = ["$scope"]
+UsersController.$inject = ["$scope", "userFirebase"]
 module.controller "UsersController", UsersController
 
 class User
