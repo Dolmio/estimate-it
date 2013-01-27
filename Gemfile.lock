@@ -226,7 +226,6 @@ DEPENDENCIES
   haml-rails (>= 0.3.5)
   hpricot (>= 0.8.6)
   hub (>= 1.10.2)
-  jasmine
   jasmine-rails
   jquery-rails
   pg
