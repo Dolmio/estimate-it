@@ -1,6 +1,4 @@
-
 module = angular.module("controllers",['service.userFirebase'])
-app = angular.module 'myApp', ['controllers']
 
 class @UsersController
   constructor: ($scope, @userFirebase)->
@@ -43,8 +41,8 @@ class @UsersController
       $scope.me.estimation = estimate
       $scope.change $scope.me
     
-    $scope.clear_everybody_if_ready = ->
-      if $scope.everyone_ready() then $scope.clear_everybody() else false
+    $scope.clear_everybody_if_everyone_ready = ->
+      if $scope.everyone_ready() then $scope.clear_everybody()
       
     $scope.everyone_ready = ->
       $scope.me.estimation? and _.every($scope.users, (user) -> user.estimation?)
@@ -69,15 +67,6 @@ class @UsersController
 UsersController.$inject = ["$scope", "userFirebase"]
 module.controller "UsersController", UsersController
 
-class User
-  constructor: (@id = @generateUUID())->
-  #from stackoverflow...
-  #So we can recognize ourselves  
-  generateUUID: ->
-    d = new Date().getTime()
-    uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) ->
-      r = (d + Math.random() * 16) % 16 | 0
-      d = Math.floor(d / 16)
-      ((if c is "x" then r else (r & 0x7 | 0x8))).toString 16
-    )
-    uuid
+class @User
+  constructor: (@id = Math.random().toString(36).substr(2))->
+  
