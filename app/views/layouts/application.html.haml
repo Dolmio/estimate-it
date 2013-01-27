@@ -1,5 +1,5 @@
 !!!
-%html{"ng-app" => "myApp"}
+%html{"ng-app" => "myApp", "ng-controller" => "ApplicationController"}
   %head
     %title Estimateit
     
@@ -24,7 +24,7 @@
             .btn.btn-custom.span3.offset3{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
       
       .btn-group
-        .btn.btn-custom.btn-large{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_ready()"} Clear estimations
+        .btn.btn-custom.btn-large{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_everyone_ready()"} Clear estimations
       %h2 Other users at the same url:        
       %ul.user_list
         .user_element.btn-custom.disabled{"ng-repeat" => "user in users"} 
