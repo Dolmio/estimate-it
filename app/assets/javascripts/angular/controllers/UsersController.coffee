@@ -1,10 +1,11 @@
-module = angular.module("controllers",['service.userFirebase', 'service.currentUser'])
+module = angular.module("controllers",['service.userFirebase', 'service.user'])
 
-class @UsersController
-  constructor: ($scope, @userFirebase, currentUser)->
-   
-    $scope.users = []
-    $scope.me = currentUser
+class @UsersController extends BaseController
+  constructor: ($scope, @userFirebase, users)->
+    super($scope)
+    $scope.users = users.other_users
+    $scope.me = users.current_user
+    
     @userFirebase.connect()
     @userFirebase.initialize_local_user($scope.me)
   
@@ -57,14 +58,9 @@ class @UsersController
       $scope.me.estimation = undefined
       $scope.change($scope.me)
     
-    $scope.safeApply = (fn) ->
-      phase = @$root.$$phase
-      if phase is "$apply" or phase is "$digest"
-        fn()  if fn and (typeof (fn) is "function")
-      else
-        @$apply fn
+    
 
-UsersController.$inject = ["$scope", "userFirebase", "currentUser"]
+UsersController.$inject = ["$scope", "userFirebase", "users"]
 module.controller "UsersController", UsersController
 
 class @User

@@ -4,13 +4,13 @@
 describe "usersController", ->
   
   beforeEach =>
-    angular.module('test',[])
+    angular.module('test',['service.user'])
     fireMock = jasmine.createSpyObj 'fireMock', ['connect', 'initialize_local_user', 'on', 'update']
     #this marks test and ng modules for injection
     module 'test'
-    inject ($rootScope) =>
+    inject ($rootScope, users) =>
       @scope = $rootScope.$new()
-      @ctrl = new UsersController @scope , fireMock, new User 
+      @ctrl = new UsersController @scope , fireMock, users
       
   it "should have local user", =>
     expect(@scope.me.id).toBeDefined()

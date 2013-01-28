@@ -1,4 +1,4 @@
-app = angular.module 'myApp', ['controllers']
+app = angular.module 'myApp', ['controllers', 'controllers.chat']
 class @ApplicationController
   constructor:($location) ->
     if $location.hash() is "" then $location.hash Math.random().toString(36).substr(2)

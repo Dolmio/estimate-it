@@ -34,7 +34,13 @@
           %i.icon-ok-sign.user-icon{"ng-show" => "selected_user_and_waiting_for_others(user)"}
           %i.icon-question-sign.user-icon{"ng-show" => "user.estimation == undefined"}
           %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
-            
-          
+    
+    .container{"ng-controller" => "ChatController"}
+      %input{"type" =>"text", "name" => "name" , "placeholder" =>'Name' "ng-model"=>"current_user.name"}
+      %input{"type" =>"text", "name" => "message" , "placeholder" =>'message' "ng-model"=>"message.data"}
+      %button.btn{"ng-click" => "addMessage(message)"} Send
+      %ul{"ng-repeat" => "message in messages"}
+        %li {{message.data}}
+        
       
         

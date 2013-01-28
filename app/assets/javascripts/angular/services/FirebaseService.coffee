@@ -1,5 +1,5 @@
 class @FirebaseService
-  constructror:($location, url_suffix) ->
+  constructor:($location, url_suffix) ->
     @url = "http://estimateit.firebaseio.com/#{$location.hash()}/#{url_suffix}"
     
   connect: =>
