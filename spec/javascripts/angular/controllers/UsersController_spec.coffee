@@ -10,7 +10,7 @@ describe "usersController", ->
     module 'test'
     inject ($rootScope) =>
       @scope = $rootScope.$new()
-      @ctrl = new UsersController @scope , fireMock 
+      @ctrl = new UsersController @scope , fireMock, new User 
       
   it "should have local user", =>
     expect(@scope.me.id).toBeDefined()

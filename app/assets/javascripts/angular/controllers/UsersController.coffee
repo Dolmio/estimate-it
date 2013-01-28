@@ -1,10 +1,10 @@
-module = angular.module("controllers",['service.userFirebase'])
+module = angular.module("controllers",['service.userFirebase', 'service.currentUser'])
 
 class @UsersController
-  constructor: ($scope, @userFirebase)->
+  constructor: ($scope, @userFirebase, currentUser)->
    
     $scope.users = []
-    $scope.me = new User
+    $scope.me = currentUser
     @userFirebase.connect()
     @userFirebase.initialize_local_user($scope.me)
   
@@ -64,7 +64,7 @@ class @UsersController
       else
         @$apply fn
 
-UsersController.$inject = ["$scope", "userFirebase"]
+UsersController.$inject = ["$scope", "userFirebase", "currentUser"]
 module.controller "UsersController", UsersController
 
 class @User
