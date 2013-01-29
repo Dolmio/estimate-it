@@ -45,9 +45,9 @@
                   %span {{message.author}}:
                   %span {{message.data}}
             
-            .input-append
+            %form.input-append
               %input{"type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data"}
-              %button.btn{"ng-click" => "addMessage(message.data)"}Send
+              %button.btn{"type" =>"submit",  "ng-click" => "addMessage(message.data)"}Send
             %input#chat-name{"type" =>"text", "name" => "name" , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
         
       
