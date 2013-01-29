@@ -72,12 +72,16 @@ h1{
   @include borders;
   @include shadow;
   margin-bottom: 5px;
+  line-height: 40px;  	
+  width: 120px;
+  height: 90px;	  	
+  margin: 10px;
 }
 
 .user-icon{
  font-size: 5em;
 }
-ul p{
+.user_element p{
   font-size: 5em;
   font-weight: bold;
   margin-top: 20px;
