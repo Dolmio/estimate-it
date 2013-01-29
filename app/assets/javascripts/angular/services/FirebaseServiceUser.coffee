@@ -8,7 +8,7 @@ class @UserFirebaseService extends FirebaseService
   
   initialize_local_user: (user) =>
     @fb.child(user.id).set user
-    @fb.child(user.id).removeOnDisconnect()
+    @fb.child(user.id).onDisconnect().remove()
   
   update: (user) =>
     user = angular.fromJson(angular.toJson(user))
