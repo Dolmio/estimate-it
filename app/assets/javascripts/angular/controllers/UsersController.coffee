@@ -64,5 +64,5 @@ UsersController.$inject = ["$scope", "userFirebase", "users"]
 module.controller "UsersController", UsersController
 
 class @User
-  constructor: (@id = Math.random().toString(36).substr(2))->
+  constructor: (@id = Math.random().toString(36).substr(2), @name="Anonymous" + Math.floor(Math.random() * 100))->
   

@@ -17,30 +17,38 @@
         
     .container{"ng-controller" => "UsersController"}
       %h1 Planning Poker
-      - @items = ["0","1","2","3","5","8","12","50","?"]
+      .row
+        .span7
+          - @items = ["0","1","2","3","5","8","12","50","?"]
       
-      - for i in 0..2
-        - @multiplier = i * 3
-        .row
-          - for j in 0..2
-            - @value = @items[@multiplier + j]
-            .btn.btn-custom.span3.offset3{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
+          - for i in 0..2
+            - @multiplier = i * 3
+            .row
+              - for j in 0..2
+                - @value = @items[@multiplier + j]
+                .btn.btn-custom.card{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
       
-      .btn-group
-        .btn.btn-custom.btn-large{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_everyone_ready()"} Clear estimations
-      %h2 Other users at the same url:        
-      %ul.user_list
-        .user_element.btn-custom.disabled{"ng-repeat" => "user in users"} 
-          %i.icon-ok-sign.user-icon{"ng-show" => "selected_user_and_waiting_for_others(user)"}
-          %i.icon-question-sign.user-icon{"ng-show" => "user.estimation == undefined"}
-          %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
-    
-    .container{"ng-controller" => "ChatController"}
-      %input{"type" =>"text", "name" => "name" , "placeholder" =>'Name' "ng-model"=>"current_user.name"}
-      %input{"type" =>"text", "name" => "message" , "placeholder" =>'message' "ng-model"=>"message.data"}
-      %button.btn{"ng-click" => "addMessage(message)"} Send
-      %ul{"ng-repeat" => "message in messages"}
-        %li {{message.data}}
+          
+          .btn.btn-custom.btn-large.clear-btn{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_everyone_ready()"} Clear estimations
+        .span2  
+          %h4 Others:        
+          .user_list
+            .user_element.btn-custom.disabled{"ng-repeat" => "user in users"} 
+              %i.icon-ok-sign.user-icon{"ng-show" => "selected_user_and_waiting_for_others(user)"}
+              %i.icon-question-sign.user-icon{"ng-show" => "user.estimation == undefined"}
+              %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
+        .span3
+          .div{"ng-controller" => "ChatController"}
+            .chat-box
+              %div{"ng-repeat" => "message in messages"}
+                .message 
+                  %span {{message.author}}:
+                  %span {{message.data}}
+            
+            .input-append
+              %input{"type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data"}
+              %button.btn{"ng-click" => "addMessage(message.data)"}Send
+            %input#chat-name{"type" =>"text", "name" => "name" , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
         
       
         

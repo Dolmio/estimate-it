@@ -10,7 +10,8 @@ class @ChatController extends BaseController
     $scope.messages = []
     
     $scope.addMessage = (message) =>
-      chatFirebase.addMessage(@current_user.name, message)
+      console.log $scope.current_user
+      chatFirebase.addMessage(new Message($scope.current_user.name, message))
     
     @chatFirebase.on 'child_added', (snapshot)->
       $scope.messages.push(snapshot.val())
@@ -20,3 +21,5 @@ class @ChatController extends BaseController
 ChatController.$inject = ["$scope", "chatFirebase", "users"]
 module.controller "ChatController", ChatController
 
+class Message
+  constructor:(@author = "Anonymous", @data = "") ->

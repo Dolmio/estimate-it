@@ -50,7 +50,8 @@ h1{
   font-weight: bold;
   
 }
-.span3{
+.card{
+  width: 170px;
   line-height: 80px;
   background-color:$blue;
   margin: 10px;
@@ -58,7 +59,7 @@ h1{
   @include borders;
   @include shadow;
 }
-.span4:hover{
+.card:hover{
   background-color: #6dbdd8;
 }
 .user_list{
@@ -70,11 +71,7 @@ h1{
   @extend .btn-large;
   @include borders;
   @include shadow;
-  line-height: 40px;
-  width: 120px;
-  height: 90px;
-  margin: 10px;
-  
+  margin-bottom: 5px;
 }
 
 .user-icon{
@@ -100,4 +97,22 @@ ul p{
   color: #333 !important;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.23);
   -webkit-font-smoothing: antialiased;
+}
+
+.message{
+  text-align:left;
+}
+
+.chat-box{
+  overflow:scroll;
+  height: 300px;
+  max-height: 300px;
+  padding: 10px;
+  @include borders;
+}
+.clear-btn{
+  float: left;
+}
+#chat-name{
+  float: left;
 }

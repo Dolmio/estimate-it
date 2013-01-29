@@ -6,7 +6,7 @@ class @ChatFirebaseService extends FirebaseService
   constructor:($location) ->
     super($location, "messages")
   
-  addMessage: (author, message) ->
+  addMessage: (message) ->
     @fb.push(message)
 
 ChatFirebaseService.$inject = ["$location"]
