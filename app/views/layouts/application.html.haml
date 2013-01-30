@@ -40,7 +40,7 @@
         .span3
           .div{"ng-controller" => "ChatController"}
             .chat-box
-              %div{"ng-repeat" => "message in messages"}
+              %div{"ng-repeat" => "message in messages", "scroll-down" => "messages"}
                 .message 
                   %span {{message.author}}:
                   %span {{message.data}}
