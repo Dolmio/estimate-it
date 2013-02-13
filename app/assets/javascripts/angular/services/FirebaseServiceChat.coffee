@@ -1,11 +1,11 @@
 module = angular.module "service.chatFirebase", [], ['$provide', ($provide) ->
   $provide.factory 'chatFirebase', ['$location', '$rootScope', ($location, $rootScope)->
-    new ChatFirebaseService $location, $rootScope
+    firebase_url = "http://estimateit.firebaseio.com/#{$location.hash()}/messages"
+    new ChatFirebaseService(new Firebase(firebase_url), $rootScope)
   ]
 ]
-class @ChatFirebaseService extends FirebaseService
-  constructor:($location, $rootScope) ->
-    super($location, "messages")
+class @ChatFirebaseService
+  constructor:(@fb, $rootScope) ->
     @messages = []
     
     @fb.on 'child_added', (snapshot) =>
@@ -16,4 +16,4 @@ class @ChatFirebaseService extends FirebaseService
   addMessage: (message) =>
     @fb.push message
         
-ChatFirebaseService.$inject = ["$location"]
+ChatFirebaseService.$inject = ["$location", "$rootScope"]
