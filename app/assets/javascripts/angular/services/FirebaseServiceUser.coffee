@@ -1,7 +1,8 @@
-module = angular.module "service.userFirebase", [], ($provide) ->
+module = angular.module "service.userFirebase", [],['$provide', ($provide) ->
   $provide.factory 'userFirebase', ['$location', ($location)->
     new UserFirebaseService($location)
   ]
+]
 class @UserFirebaseService extends FirebaseService
   constructor:($location)  ->
     super($location, "users")
