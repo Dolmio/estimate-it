@@ -47,7 +47,7 @@
             %form{"name" => "chatForm"}
               .input-append
                 %input{"type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data", "required" => true}
-                %button.btn{"type" =>"submit",  "ng-disabled" => "chatForm.$invalid", "ng-click" => "sendMessage(message.data)"}Send
+                %button.btn{"type" =>"submit",  "ng-disabled" => "chatForm.$invalid", "ng-click" => "sendMessage()"}Send
               %input#chat-name{"type" =>"text", "required" => true , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
         
       

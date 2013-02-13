@@ -16,6 +16,9 @@ describe "ChatController", ->
   it 'should have user present', =>
     expect(@scope.current_user).toBeDefined()
   
-  it 'should send send message', =>
-    @scope.sendMessage(new Message("author", "text"))
+  it 'should clear message text after sending message', =>
+    @scope.message = {}
+    @scope.message.data = "message"
+    @scope.sendMessage()
+    expect(@scope.message.data).toBeUndefined()
     

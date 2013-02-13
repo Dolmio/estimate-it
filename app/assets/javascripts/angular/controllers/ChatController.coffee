@@ -6,8 +6,9 @@ class @ChatController
     $scope.current_user = userFirebase.currentUser
     $scope.messages = chatFirebase.messages
     
-    $scope.sendMessage = (text)=>
-      chatFirebase.addMessage(new Message($scope.current_user.name, text))
+    $scope.sendMessage = =>
+      chatFirebase.addMessage(new Message($scope.current_user.name, $scope.message.data))
+      $scope.message.data = undefined
     
     
 ChatController.$inject = ["$scope", "chatFirebase", "userFirebase"]
