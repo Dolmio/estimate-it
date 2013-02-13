@@ -13,7 +13,7 @@ class @UsersController extends BaseController
       console.log "added child"
       #dont push ourselves to users
       if snapshot.val().id isnt $scope.me.id
-         $scope.users.push snapshot.val()
+        $scope.users.push snapshot.val()
       $scope.safeApply()
     
     @userFirebase.on "child_changed", (snapshot) =>
@@ -21,7 +21,7 @@ class @UsersController extends BaseController
       dirty_other_user = _.find($scope.users, (user) -> user.id is snapshot.name())
       if not dirty_other_user? and $scope.me.id is snapshot.name()
         $scope.me = angular.fromJson(snapshot.val())
-      else  
+      else
         $scope.users[_.indexOf($scope.users, dirty_other_user)] = angular.fromJson(snapshot.val())
       $scope.safeApply()
     

@@ -5,5 +5,5 @@ class @BaseController
       if phase is "$apply" or phase is "$digest"
         fn()  if fn and (typeof (fn) is "function")
       else
-        @$apply fn  
+        @$apply fn
   
