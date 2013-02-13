@@ -4,7 +4,7 @@
 describe "usersController", ->
   
   beforeEach =>
-    angular.module('test',['service.user'])
+    angular.module('test',['myApp', 'service.user'])
     fireMock = jasmine.createSpyObj 'fireMock', ['connect', 'initialize_local_user', 'on', 'update']
     #this marks test and ng modules for injection
     module 'test'

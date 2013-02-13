@@ -1,12 +1,10 @@
 module = angular.module("controllers",['service.userFirebase', 'service.user'])
 
-class @UsersController extends BaseController
+class @UsersController
   constructor: ($scope, @userFirebase, users)->
-    super($scope)
     $scope.users = users.other_users
     $scope.me = users.current_user
     
-    @userFirebase.connect()
     @userFirebase.initialize_local_user($scope.me)
   
     @userFirebase.on "child_added", (snapshot) =>

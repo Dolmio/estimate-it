@@ -1,21 +1,15 @@
 
 module = angular.module('controllers.chat', ['service.user', 'service.chatFirebase'])
 
-class @ChatController extends BaseController
+class @ChatController
   constructor:($scope, @chatFirebase, users) ->
-    super($scope)
-    @chatFirebase.connect()
+    $scope.chatFirebase = @chatFirebase
     $scope.current_user = users.current_user
     @other_users = users.other_users
-    $scope.messages = []
+    $scope.messages = @chatFirebase.messages
     
     $scope.addMessage = (message) =>
-      console.log $scope.current_user
-      chatFirebase.addMessage(new Message($scope.current_user.name, message))
-    
-    @chatFirebase.on 'child_added', (snapshot)->
-      $scope.messages.push(snapshot.val())
-      $scope.safeApply()
+      @chatFirebase.addMessage(new Message($scope.current_user.name, message))
     
     
 ChatController.$inject = ["$scope", "chatFirebase", "users"]

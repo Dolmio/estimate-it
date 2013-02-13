@@ -1,6 +1,6 @@
 describe 'ApplicationController', ->
   beforeEach =>
-    angular.module('test',[])
+    angular.module('test',['myApp'])
     module 'test'
   
   it "when no predifined hash", ->
