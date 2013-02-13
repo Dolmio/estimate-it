@@ -44,11 +44,11 @@
                 .message 
                   %span {{message.author}}:
                   %span {{message.data}}
-            
-            %form.input-append
-              %input{"type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data"}
-              %button.btn{"type" =>"submit",  "ng-click" => "addMessage(message.data)"}Send
-            %input#chat-name{"type" =>"text", "name" => "name" , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
+            %form{"name" => "chatForm"}
+              .input-append
+                %input{"type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data", "required" => true}
+                %button.btn{"type" =>"submit",  "ng-disabled" => "chatForm.$invalid", "ng-click" => "addMessage(message.data)"}Send
+              %input#chat-name{"type" =>"text", "required" => true , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
         
       
         
