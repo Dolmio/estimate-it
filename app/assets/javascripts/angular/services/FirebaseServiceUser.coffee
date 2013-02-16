@@ -45,3 +45,7 @@ class @UserFirebaseService
   update: (user) =>
     user = angular.fromJson(angular.toJson(user))
     @fb.child(user.id).set user
+    
+  
+     
+UserFirebaseService.$inject = ["$location"]
