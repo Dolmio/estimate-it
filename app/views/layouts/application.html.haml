@@ -46,9 +46,9 @@
                   %span {{message.data}}
             %form{"name" => "chatForm"}
               .input-append
-                %input{"type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data", "required" => true}
-                %button.btn{"type" =>"submit",  "ng-disabled" => "chatForm.$invalid", "ng-click" => "sendMessage()"}Send
-              %input#chat-name{"type" =>"text", "required" => true , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
+                %input#chat-message{ "type" =>"text", "name" => "message" , "placeholder" =>'message', "ng-model"=>"message.data", "required" => true}
+                %button#chat-submit.btn{"type" =>"submit",  "ng-disabled" => "chatForm.$invalid", "ng-click" => "sendMessage()"}Send
+              %input#chat-name{"type" =>"text", "name" => "nickname", "required" => true , "placeholder" =>'Nickname', "ng-model"=>"current_user.name"}
         
       
         
