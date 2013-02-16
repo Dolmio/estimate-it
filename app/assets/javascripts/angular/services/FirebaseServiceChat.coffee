@@ -15,5 +15,3 @@ class @ChatFirebaseService
   
   addMessage: (message) =>
     @fb.push message
-        
-ChatFirebaseService.$inject = ["$location", "$rootScope"]
