@@ -5,13 +5,15 @@ module = angular.module "service.chatFirebase", [], ['$provide', ($provide) ->
   ]
 ]
 class @ChatFirebaseService
-  constructor:(@fb, $rootScope) ->
+  constructor:(@fb, @$rootScope) ->
     @messages = []
     
-    @fb.on 'child_added', (snapshot) =>
-        console.log "message added event"
-        @messages.push snapshot.val()
-        $rootScope.safeApply()
+    @fb.on 'child_added', @_onMessageAdded
+    
+  _onMessageAdded: (snapshot) =>
+    console.log "message added event"
+    @messages.push snapshot.val()
+    @$rootScope.safeApply()
   
   addMessage: (message) =>
     @fb.push message
