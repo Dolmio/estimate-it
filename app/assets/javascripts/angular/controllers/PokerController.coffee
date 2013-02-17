@@ -1,6 +1,6 @@
-module = angular.module("controllers",['service.userFirebase'])
+module = angular.module("controllers.poker",['service.userFirebase'])
 
-class @UsersController
+class @PokerController
   constructor: ($scope, @userFirebase)->
     $scope.users = @userFirebase.users
     $scope.me = @userFirebase.currentUser
@@ -32,8 +32,8 @@ class @UsersController
     
     
 
-UsersController.$inject = ["$scope", "userFirebase"]
-module.controller "UsersController", UsersController
+PokerController.$inject = ["$scope", "userFirebase"]
+module.controller "PokerController", PokerController
 
 class @User
   constructor: (@id = Math.random().toString(36).substr(2), @name="Anonymous" + Math.floor(Math.random() * 100))->

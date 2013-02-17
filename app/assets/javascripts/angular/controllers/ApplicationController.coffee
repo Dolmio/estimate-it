@@ -1,4 +1,4 @@
-app = angular.module 'myApp', ['ng', 'controllers', 'controllers.chat'], ['$provide', ($provide) ->
+app = angular.module 'myApp', ['controllers.poker', 'controllers.chat'], ['$provide', ($provide) ->
   $provide.decorator '$rootScope', ['$delegate', ($rootScope) -> 
     $rootScope.safeApply = (fn) ->
       phase = @$root.$$phase

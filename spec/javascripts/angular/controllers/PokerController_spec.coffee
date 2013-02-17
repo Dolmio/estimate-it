@@ -1,7 +1,7 @@
 #= require angular
 #= require angular-mocks
 #= application
-describe "usersController", ->
+describe "PokerController", ->
   
   beforeEach =>
     angular.module('test',['myApp', 'service.userFirebase'])
@@ -12,7 +12,7 @@ describe "usersController", ->
     module 'test'
     inject ($rootScope) =>
       @scope = $rootScope.$new()
-      @ctrl = new UsersController @scope, userFirebase
+      @ctrl = new PokerController @scope, userFirebase
       
   it "should have local user", =>
     expect(@scope.me.id).toBeDefined()
