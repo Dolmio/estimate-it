@@ -7,7 +7,7 @@ describe "PokerController", ->
     angular.module('test',['myApp', 'service.userFirebase'])
     userFirebase = jasmine.createSpyObj 'fireMock', ['update']
     userFirebase.currentUser =  new User
-    userFirebase.users = []
+    userFirebase.otherUsers = []
     #this marks test and ng modules for injection
     module 'test'
     inject ($rootScope) =>
@@ -27,7 +27,7 @@ describe "PokerController", ->
   
   describe "when other users present", =>
     beforeEach =>
-      @scope.users.push new User for i in [1..10]
+      @scope.otherUsers.push new User for i in [1..10]
       
     describe "recognize when everyone ready", =>
       it "when nobody ready", =>
@@ -38,24 +38,24 @@ describe "PokerController", ->
         expect(@scope.everyone_ready()).toBe(false)
       
       it "when only others ready", =>
-        for user in @scope.users
+        for user in @scope.otherUsers
           user.estimation = 1
         expect(@scope.everyone_ready()).toBe(false)
       
       it "when everyone ready", =>
-        for user in @scope.users
+        for user in @scope.otherUsers
           user.estimation = 1
         @scope.me.estimation = 1
         expect(@scope.everyone_ready()).toBe(true)
     
     describe "when clearing estimations", =>
       beforeEach =>
-        for user in @scope.users
+        for user in @scope.otherUsers
           user.estimation = 1
         @scope.me.estimation = 1
       it "should clear everybody", =>
         @scope.clear_everybody()
-        for user in @scope.users
+        for user in @scope.otherUsers
           expect(user.estimation).toBe(undefined)
         expect(@scope.me.estimation).toBe(undefined)
     
@@ -66,7 +66,7 @@ describe "PokerController", ->
       it "when not selected", =>
         expect(@scope.selected_user_and_waiting_for_others(@scope.me)).toBe(false)
       it "when everyone ready", =>
-        for user in @scope.users
+        for user in @scope.otherUsers
           user.estimation = 1
         @scope.me.estimation = 1
         expect(@scope.selected_user_and_waiting_for_others(@scope.me)).toBe(false)

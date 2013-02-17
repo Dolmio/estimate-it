@@ -2,9 +2,9 @@ describe "ChatController", ->
   
   beforeEach =>
     angular.module('test',['myApp', 'service.userFirebase'])
-    userFirebase = jasmine.createSpyObj 'usersMock', ['users', 'currentUser']
+    userFirebase = jasmine.createSpyObj 'usersMock', ['otherUsers', 'currentUser']
     userFirebase.currentUser = -> new User
-    userFirebase.users = -> []
+    userFirebase.otherUsers = -> []
     chatFirebase = jasmine.createSpyObj 'chatMock', ['addMessage']
     chatFirebase.messages = []
     #this marks test and ng modules for injection

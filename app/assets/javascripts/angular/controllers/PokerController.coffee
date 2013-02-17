@@ -2,7 +2,7 @@ module = angular.module("controllers.poker",['service.userFirebase'])
 
 class @PokerController
   constructor: ($scope, @userFirebase)->
-    $scope.users = @userFirebase.users
+    $scope.otherUsers = @userFirebase.otherUsers
     $scope.me = @userFirebase.currentUser
     
     $scope.change = (user)=>
@@ -18,13 +18,13 @@ class @PokerController
       if $scope.everyone_ready() then $scope.clear_everybody()
       
     $scope.everyone_ready = ->
-      $scope.me.estimation? and _.every($scope.users, (user) -> user.estimation?)
+      $scope.me.estimation? and _.every($scope.otherUsers, (user) -> user.estimation?)
     
     $scope.selected_user_and_waiting_for_others = (user)->
       user.estimation? and not $scope.everyone_ready()
     
     $scope.clear_everybody = ->
-      for user in $scope.users
+      for user in $scope.otherUsers
         user.estimation = undefined
         $scope.change(user)
       $scope.me.estimation = undefined
