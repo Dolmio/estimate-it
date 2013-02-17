@@ -35,7 +35,7 @@
         .span2  
           %h4 Others:        
           .user_list
-            .user_element.btn-custom.disabled{"ng-repeat" => "user in otherUsers"} 
+            .user_element.btn-custom.disabled{"ng-repeat" => "user in otherUsers", "title" => "{{user.name}}"} 
               %i.icon-ok-sign.user-icon{"ng-show" => "selected_user_and_waiting_for_others(user)"}
               %i.icon-question-sign.user-icon{"ng-show" => "user.estimation == undefined"}
               %p{"ng-show" => "everyone_ready()"} {{user.estimation}}
