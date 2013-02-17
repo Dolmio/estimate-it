@@ -29,7 +29,7 @@
                 .btn.btn-custom.card{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
       
           
-          .btn.btn-custom.btn-large.clear-btn{"ng-class"=> "{disabled: !everyone_ready()}", "ng-click" =>"clear_everybody_if_everyone_ready()"} Clear estimations
+          .btn.btn-custom.btn-large.clear-btn{"ng-disabled" => "!everyone_ready()", "ng-click" =>"clear_everybody()"} Clear estimations
         
         
         .span2  

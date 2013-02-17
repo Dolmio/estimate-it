@@ -13,9 +13,6 @@ class @PokerController
     $scope.change_my_estimation = (estimate)=>
       $scope.me.estimation = estimate
       $scope.change $scope.me
-    
-    $scope.clear_everybody_if_everyone_ready = ->
-      if $scope.everyone_ready() then $scope.clear_everybody()
       
     $scope.everyone_ready = ->
       $scope.me.estimation? and _.every($scope.otherUsers, (user) -> user.estimation?)
