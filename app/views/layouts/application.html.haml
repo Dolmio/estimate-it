@@ -26,7 +26,7 @@
             .row
               - for j in 0..2
                 - @value = @items[@multiplier + j]
-                .btn.btn-custom.card{ "ng-class"=>"{active: me.estimation == '#{@value}'}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
+                .btn.btn-custom.card{ "ng-class"=>"{active: cardIsActive('#{@value}')}", "ng-click"=>"change_my_estimation('#{@value}')"} #{@value}
       
           
           .btn.btn-custom.btn-large.clear-btn{"ng-disabled" => "!everyone_ready()", "ng-click" =>"clear_everybody()"} Clear estimations

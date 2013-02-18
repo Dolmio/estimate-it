@@ -27,7 +27,8 @@ class @PokerController
       $scope.me.estimation = undefined
       $scope.change($scope.me)
     
-    
+    $scope.cardIsActive = (value) =>
+      @userFirebase.currentUser.estimation is value
 
 PokerController.$inject = ["$scope", "userFirebase"]
 module.controller "PokerController", PokerController
